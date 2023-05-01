@@ -51,14 +51,26 @@
          constructor(game) {
             this.game = game;
             this.markForDeletion = false;
+            this.frameX =0;
+            this.maxFrameX = 5;
+            this.frameIntraval =100;
+            this.frameTime =0;
          }
          update(deltaTime){
-            this.x-= this.speedX * deltaTime;
-            if (this.x < 0 - this.width) this.markForDeletion = true;
+             this.x-= this.speedX * deltaTime;
+             if (this.x < 0 - this.width) this.markForDeletion = true;
+             if (this.frameTime > this.frameIntraval){
+                    if (this.frameX < this.maxFrameX) this.frameX++;
+                    else this.frameX =0;
+                    this.frameTime =0;
+             }else {
+                this.frameTime+=deltaTime;
+             }
+
          }
          draw(ctx){
              ctx.drawImage(this.image,
-                            0,
+                            this.frameX * this.spriteWidth,
                             0,
                             this.spriteWidth,
                             this.spriteHeight,
