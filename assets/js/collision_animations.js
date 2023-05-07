@@ -6,7 +6,7 @@ const explosions = [];
 let canvasPosition = canvas.getBoundingClientRect();
 class Explosion{
     constructor(x,y) {
-        this.spriteWidth = 100;
+        this.spriteWidthspriteWidth = 100;
         this.spriteHeight = 179;
         this.width = this.spriteWidth * 0.7;
         this.height = this.spriteHeight * 0.7;
