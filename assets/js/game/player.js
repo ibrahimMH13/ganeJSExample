@@ -7,7 +7,7 @@ export  class Player{
         this.x = 0;
         this.y = this.game.height - this.height - this.game.marginGround;
         this.image = playerImg;
-        this.speed = 0;
+        this.speed = 3;
         this.maxSpeed = 10;
         this.vy =0;
         this.weight =1;
@@ -31,7 +31,7 @@ export  class Player{
         if (this.x <0) this.x=0;
         if (this.x > this.game.width - this.width) this.x = this.game.width - this.width;
         //vertical
-        if(input.includes('ArrowUp') && this.onGround()) this.vy-=30;
+        if(input.includes('ArrowUp') && this.onGround()) this.vy-=20;
         this.y += this.vy;
         if (!this.onGround()) this.vy+=this.weight;
         else this.vy=0;
@@ -45,6 +45,7 @@ export  class Player{
         }
     }
     draw(context){
+        if (this.game.debug) context.strokeRect(this.x,this.y,this.width,this.height);
         context.drawImage(this.image,
                           this.frameX * this.width,
                           this.frameY * this.height,
@@ -59,8 +60,9 @@ export  class Player{
         return this.y >= this.game.height - this.height - this.game.marginGround;
     }
 
-    setState(state){
+    setState(state,speed){
         this.currentState = this.states[state];
+        this.game.speed = this.game.maxSpeed * speed;
         this.currentState.enter();
     }
 }

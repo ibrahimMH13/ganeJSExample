@@ -13,6 +13,17 @@
     max-width: 100%;
     max-height: 100%;
 }
-#playerImg{
+#playerImg,
+#layerImg1,
+#layerImg2,
+#layerImg3,
+#layerImg4,
+#layerImg5,
+#bigSpider,
+#bat,
+#plant,
+#fly,
+#spider
+{
     display: none;
 }
