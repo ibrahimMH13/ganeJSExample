@@ -22,6 +22,7 @@ export  class Player{
         this.frameTimer = 0;
     }
     update(input,timestamp){
+        this.checkCollision();
         this.currentState.inputHandler(input);
         //horizontal
         this.x += this.speed;
@@ -64,5 +65,18 @@ export  class Player{
         this.currentState = this.states[state];
         this.game.speed = this.game.maxSpeed * speed;
         this.currentState.enter();
+    }
+
+    checkCollision(){
+       this.game.enemies.forEach(enemy=>{
+         if (enemy.x < this.x + this.width &&
+            enemy.x + enemy.width > this.x &&
+            enemy.y < this.y +this.height &&
+         enemy.y + enemy.height > this.y){
+             enemy.markForDeletion = true;
+             this.game.gameScore++;
+         }
+       });
+       console.log(this.game.gameScore);
     }
 }

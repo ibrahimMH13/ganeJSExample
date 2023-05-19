@@ -23,6 +23,7 @@ window.addEventListener('load',()=>{
             this.enemyTimer =0;
             this.enemyIntrval =1000;
             this.debug = false;
+            this.gameScore = 0;
         }
         update(detlaTime){
             this.background.update();
@@ -53,7 +54,6 @@ window.addEventListener('load',()=>{
             if (this.speed > 0 && Math.random() <.5 )this.enemies.push(new GroundEnemy(this));
             else if (this.speed > 0 )this.enemies.push(new ClimbingEnemy(this));
             this.enemies.push(new FlyingEnemy(this));
-            console.log(this.enemies)
         }
     }
 
