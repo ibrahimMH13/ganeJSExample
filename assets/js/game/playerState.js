@@ -2,7 +2,10 @@ const states ={
     SITTING:0,
     RUNNING:1,
     JUMPING:2,
-    FALLING:3
+    FALLING:3,
+    ROLLING:4,
+    DIVING:5,
+    HIT:5,
 }
 class State{
     constructor(state) {
@@ -26,6 +29,8 @@ export class Sitting extends State{
         console.log(input);
       if (input.includes('ArrowRight') || input.includes('ArrowLeft')){
             this.player.setState(states.RUNNING,1);
+      }else if (input.includes('Enter')){
+          this.player.setState(states.ROLLING,2);
       }
     }
 
@@ -46,8 +51,11 @@ export class Running extends State{
         if (input.includes('ArrowDown')){
             this.player.setState(states.SITTING,0);
         }
-        if (input.includes('ArrowUp')){
+       else if (input.includes('ArrowUp')){
             this.player.setState(states.JUMPING,1);
+        }
+        else if (input.includes('Enter')){
+            this.player.setState(states.ROLLING,2);
         }
     }
 
@@ -69,11 +77,14 @@ export class Jumping extends State{
     inputHandler(input){
         if (this.player.vy > this.player.weight){
             this.player.setState(states.FALLING,1);
+        }else if (input.includes('Enter')){
+            this.player.setState(states.ROLLING,2);
         }
 
     }
 
-}export class Falling extends State{
+}
+export class Falling extends State{
     constructor(player) {
         super('FALLING');
         this.player = player;
@@ -88,6 +99,32 @@ export class Jumping extends State{
     inputHandler(input){
         if (this.player.onGround()){
             this.player.setState(states.RUNNING,1);
+        }
+
+    }
+
+}
+export class Rolling extends State{
+    constructor(player) {
+        super('ROLLING');
+        this.player = player;
+    }
+
+    enter(){
+        this.player.frameX = 0;
+        this.player.frameY = 6;
+        this.player.maxFrame = 6;
+
+    }
+    inputHandler(input){
+        if (!input.includes('Enter') && this.player.onGround()){
+            this.player.setState(states.RUNNING,1);
+        }
+       else if (!input.includes('Enter') && !this.player.onGround()){
+            this.player.setState(states.FALLING,1);
+        }
+       else if (input.includes('Enter') && this.player.onGround() && input.includes('ArrowUp')){
+           this.player.vy  -=20;
         }
 
     }

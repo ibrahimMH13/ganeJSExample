@@ -1,4 +1,4 @@
-import {Sitting,Running,Jumping,Falling} from '../game/playerState.js';
+import {Sitting,Running,Jumping,Falling,Rolling} from '../game/playerState.js';
 export  class Player{
     constructor(game) {
         this.game   = game;
@@ -11,7 +11,7 @@ export  class Player{
         this.maxSpeed = 10;
         this.vy =0;
         this.weight =1;
-        this.states =[new Sitting(this),new Running(this),new Jumping(this),new Falling(this)];
+        this.states =[new Sitting(this),new Running(this),new Jumping(this),new Falling(this),new Rolling(this)];
         this.currentState =this.states[0];
         this.currentState.enter();
         this.frameX =0;
